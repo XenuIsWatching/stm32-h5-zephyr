@@ -38,5 +38,5 @@ west flash --runner pyocd
 # Shell
 
 ```
-minicom -D /dev/ttyACM0
+minicom --color=on -D /dev/ttyACM0
 ```
