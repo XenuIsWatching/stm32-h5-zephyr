@@ -34,3 +34,9 @@ copy the stlink rules from https://github.com/pyocd/pyOCD/blob/main/udev/README.
 ```
 west flash --runner pyocd
 ```
+
+# Shell
+
+```
+minicom -D /dev/ttyACM0
+```
