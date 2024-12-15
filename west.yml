@@ -1,0 +1,17 @@
+manifest:
+  version: 0.8
+
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: main
+      import:
+        file: west.yml
+        path-prefix: deps
+        name-allowlist:
+          - cmsis
+          - hal_stm32
+
+  self:
+    path: app
+    west-commands: scripts/west-commands.yml
