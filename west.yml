@@ -3,8 +3,8 @@ manifest:
 
   projects:
     - name: zephyr
-      url: https://github.com/zephyrproject-rtos/zephyr
-      revision: main
+      url: https://github.com/XenuIsWatching/zephyr
+      revision: counter-cap-trig
       import:
         file: west.yml
         path-prefix: deps

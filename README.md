@@ -15,7 +15,7 @@ west build --pristine=auto deps/zephyr/samples/basic/blinky
 ## This application
 
 ```
-west build --pristine=auto --extra-dtc-overlay=stm32h503-nucleo-i3c.overlay .
+west build --pristine=auto --extra-dtc-overlay=stm32h503-nucleo-i3c.overlay --extra-dtc-overlay=stm32h503-nucleo-counter.overlay .
 ```
 
 # udev rules
