@@ -40,3 +40,25 @@ west flash --runner pyocd
 ```
 minicom --color=on -D /dev/ttyACM0
 ```
+
+# Attach USB to WSL from Windows
+
+## From Windows Shell
+
+```
+usbipd list
+usbipd bind --busid 4-4
+usbipd attach --wsl --busid <busid>
+```
+
+## In WSL Shell
+
+```
+lsusb
+```
+
+## Detach from Windows
+
+```
+usbipd detach --busid <busid>
+```
