@@ -1,4 +1,6 @@
 
+#include <st/h5/stm32h503rbtx-pinctrl.dtsi>
+
 &timers2 {
         st,prescaler = <239>;
         status = "okay";
@@ -6,6 +8,6 @@
         capture: counter {
                 status = "okay";
                 pinctrl-0 = <&tim2_ch1_pa0 &tim2_ch2_pa1>;
-		pinctrl-names = "default";
+                pinctrl-names = "default";
         };
 };
