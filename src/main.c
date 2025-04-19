@@ -20,7 +20,8 @@ static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 void capture_cb(const struct device *dev, uint8_t chan,
 		uint32_t flags, uint64_t ticks, void *user_data)
 {
-	printk("Capture callback: channel %d, flags %d, ticks %llu\n", chan, flags, ticks);
+	printk("Capture callback: channel %d, flags %d, ticks %llu, %lluus\n",
+		chan, flags, ticks, counter_ticks_to_us(dev, ticks));
 }
 
 int main(void)
@@ -38,7 +39,7 @@ int main(void)
 	}
 #ifdef CONFIG_COUNTER
 	const struct device *timer_dev = DEVICE_DT_GET(DT_NODELABEL(capture));
-
+	printk("Capture enabling on channel 0\n");
 	counter_start(timer_dev);
 	counter_capture_callback_set(timer_dev, 0, COUNTER_CAPTURE_RISING_EDGE,
 				      capture_cb, NULL);
@@ -52,7 +53,7 @@ int main(void)
 		}
 
 		led_state = !led_state;
-		printf("LED state: %s\n", led_state ? "ON" : "OFF");
+		// printf("LED state: %s\n", led_state ? "ON" : "OFF");
 		k_msleep(SLEEP_TIME_MS);
 	}
 
