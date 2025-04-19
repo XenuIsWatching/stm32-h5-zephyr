@@ -23,9 +23,16 @@ static const struct gpio_dt_spec capture_tester = {
 	.dt_flags = GPIO_ACTIVE_HIGH,
 };
 
+static const struct gpio_dt_spec capture_tester1 = {
+	.port = DEVICE_DT_GET(DT_NODELABEL(gpioc)),
+	.pin = 7,
+	.dt_flags = GPIO_ACTIVE_HIGH,
+};
+
 void capture_cb(const struct device *dev, uint8_t chan,
 		uint32_t flags, uint64_t ticks, void *user_data)
 {
+	counter_reset(dev);
 	printk("Capture callback: channel %d, flags %d, ticks %llu, %lluus\n",
 		chan, flags, ticks, counter_ticks_to_us(dev, ticks));
 }
@@ -57,12 +64,21 @@ int main(void)
 		return -ENODEV;
 	}
 
+	ret = gpio_pin_configure_dt(&capture_tester1, GPIO_OUTPUT_INACTIVE);
+	if (ret < 0) {
+		printk("Failed to configure capture tester1 pin\n");
+		return -ENODEV;
+	}
+
 	printk("Capture enabling on channel 0, freq=%uHz\n",
 		counter_get_frequency(timer_dev));
 	counter_start(timer_dev);
 	counter_capture_callback_set(timer_dev, 0, COUNTER_CAPTURE_RISING_EDGE,
 				      capture_cb, NULL);
+	counter_capture_callback_set(timer_dev, 1, COUNTER_CAPTURE_RISING_EDGE,
+				      capture_cb, NULL);
 	counter_capture_enable(timer_dev, 0);
+	counter_capture_enable(timer_dev, 1);
 	printk("Capture enabled on channel 0\n");
 #endif
 	while (1) {
