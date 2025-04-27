@@ -4,7 +4,7 @@ manifest:
   projects:
     - name: zephyr
       url: https://github.com/XenuIsWatching/zephyr
-      revision: counter-cap-trig
+      revision: counter-cap
       import:
         file: west.yml
         path-prefix: deps

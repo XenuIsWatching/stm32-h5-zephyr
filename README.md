@@ -1,3 +1,11 @@
+# Clone
+
+```
+west init -m https://github.com/XenuIsWatching/stm32-h5-zephyr.git stm32-h5-zephyr
+cd stm32-h5-zephyr
+west update
+```
+
 # Set Board
 
 ```
