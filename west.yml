@@ -10,8 +10,8 @@ manifest:
         path-prefix: deps
         name-allowlist:
           - cmsis
+          - cmsis_6
           - hal_stm32
 
   self:
     path: app
-    west-commands: scripts/west-commands.yml
