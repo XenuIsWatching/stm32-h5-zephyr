@@ -30,10 +30,10 @@ static const struct gpio_dt_spec capture_tester1 = {
 };
 
 void capture_cb(const struct device *dev, uint8_t chan,
-		uint32_t flags, uint64_t ticks, void *user_data)
+		counter_capture_flags_t flags, uint32_t ticks, void *user_data)
 {
 	counter_reset(dev);
-	printk("Capture callback: channel %d, flags %d, ticks %llu, %lluus\n",
+	printk("Capture callback: channel %d, flags %d, ticks %u, %lluus\n",
 		chan, flags, ticks, counter_ticks_to_us(dev, ticks));
 }
 
