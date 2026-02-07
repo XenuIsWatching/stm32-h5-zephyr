@@ -1,0 +1,33 @@
+{
+        "version": "2.0.0",
+        "tasks": [
+          {
+            "label": "Build",
+            "type": "shell",
+            "command": "west",
+            "args": [
+              "build",
+              "--pristine=auto",
+              "--board=nucleo_h503rb",
+              "--extra-dtc-overlay=stm32h503-nucleo-i3c.overlay",
+              "--extra-dtc-overlay=stm32h503-nucleo-counter.overlay",
+              "app"
+            ],
+            "group": "build",
+            "problemMatcher": []
+          },
+          {
+            "label": "Flash",
+            "type": "shell",
+            "command": "west",
+            "args": [
+              "flash",
+              "--runner",
+              "pyocd"
+            ],
+            "group": "build",
+            "dependsOn": ["Build"]
+          }
+        ]
+      }
+      

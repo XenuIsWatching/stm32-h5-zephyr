@@ -1,0 +1,18 @@
+{
+        "version": "0.2.0",
+        "configurations": [
+          {
+            "name": "Cortex-M Debug (stlink)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "pyocd",
+            "configFiles": ["deps/zephyr/boards/st/nucleo_h503rb/support/openocd.cfg"],
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+            "device": "STM32H503RB",
+            "interface": "swd",
+            "preLaunchTask": "Build",
+            "targetId" : "stm32h503rbtx",
+          }
+        ]
+}
