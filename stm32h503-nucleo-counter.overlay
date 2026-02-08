@@ -1,6 +1,13 @@
 
 #include <st/h5/stm32h503rbtx-pinctrl.dtsi>
 
+/ {
+        zephyr,user {
+                capture-tester-gpios = <&gpioc 1 GPIO_ACTIVE_HIGH>,
+                                       <&gpioc 0 GPIO_ACTIVE_HIGH>;
+        };
+};
+
 &timers2 {
         st,prescaler = <239>;
         status = "okay";

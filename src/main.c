@@ -17,16 +17,13 @@
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
-static const struct gpio_dt_spec capture_tester = {
-	.port = DEVICE_DT_GET(DT_NODELABEL(gpioc)),
-	.pin = 6,
-	.dt_flags = GPIO_ACTIVE_HIGH,
-};
-
-static const struct gpio_dt_spec capture_tester1 = {
-	.port = DEVICE_DT_GET(DT_NODELABEL(gpioc)),
-	.pin = 7,
-	.dt_flags = GPIO_ACTIVE_HIGH,
+/*
+ * for this to work short PC0 to PA0 and PC1 to PA1
+ * Pin CN8 1 to Pin CN5 2 and Pin CN8 2 to Pin CN5 1
+ */
+static const struct gpio_dt_spec capture_tester_gpios[2] = {
+	GPIO_DT_SPEC_GET_BY_IDX(DT_PATH(zephyr_user), capture_tester_gpios, 0),
+	GPIO_DT_SPEC_GET_BY_IDX(DT_PATH(zephyr_user), capture_tester_gpios, 1),
 };
 
 void capture_cb(const struct device *dev, uint8_t chan,
@@ -58,13 +55,13 @@ int main(void)
 		return -ENODEV;
 	}
 
-	ret = gpio_pin_configure_dt(&capture_tester, GPIO_OUTPUT_INACTIVE);
+	ret = gpio_pin_configure_dt(&capture_tester_gpios[0], GPIO_OUTPUT_INACTIVE);
 	if (ret < 0) {
 		printk("Failed to configure capture tester pin\n");
 		return -ENODEV;
 	}
 
-	ret = gpio_pin_configure_dt(&capture_tester1, GPIO_OUTPUT_INACTIVE);
+	ret = gpio_pin_configure_dt(&capture_tester_gpios[1], GPIO_OUTPUT_INACTIVE);
 	if (ret < 0) {
 		printk("Failed to configure capture tester1 pin\n");
 		return -ENODEV;
@@ -73,7 +70,7 @@ int main(void)
 	printk("Capture enabling on channel 0, freq=%uHz\n",
 		counter_get_frequency(timer_dev));
 	counter_start(timer_dev);
-	counter_capture_callback_set(timer_dev, 0, COUNTER_CAPTURE_RISING_EDGE,
+	counter_capture_callback_set(timer_dev, 0, COUNTER_CAPTURE_BOTH_EDGES,
 				      capture_cb, NULL);
 	counter_capture_callback_set(timer_dev, 1, COUNTER_CAPTURE_RISING_EDGE,
 				      capture_cb, NULL);
