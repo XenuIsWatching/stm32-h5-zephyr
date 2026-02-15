@@ -3,8 +3,8 @@
 
 / {
         zephyr,user {
-                capture-tester-gpios = <&gpioc 1 GPIO_ACTIVE_HIGH>,
-                                       <&gpioc 0 GPIO_ACTIVE_HIGH>;
+                capture-tester-gpios = <&gpioc 6 GPIO_ACTIVE_HIGH>,
+                                       <&gpioc 7 GPIO_ACTIVE_HIGH>;
         };
 };
 
