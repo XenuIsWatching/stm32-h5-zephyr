@@ -39,6 +39,13 @@ copy the stlink rules from https://github.com/pyocd/pyOCD/blob/main/udev/README.
 
 # Flash
 
+Update pyocd
+```
+pyocd pack update
+pyocd pack install stm32h503
+pyocd list --targets | grep stm32h5
+```
+
 ```
 west flash --runner pyocd
 ```
