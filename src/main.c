@@ -74,8 +74,8 @@ int main(void)
 				      capture_cb, NULL);
 	counter_capture_callback_set(timer_dev, 1, COUNTER_CAPTURE_RISING_EDGE,
 				      capture_cb, NULL);
-	counter_capture_enable(timer_dev, 0);
-	counter_capture_enable(timer_dev, 1);
+	counter_enable_capture(timer_dev, 0);
+	counter_enable_capture(timer_dev, 1);
 	printk("Capture enabled on channel 0\n");
 #endif
 	while (1) {
