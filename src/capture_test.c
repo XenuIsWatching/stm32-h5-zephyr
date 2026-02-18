@@ -67,11 +67,9 @@ static int counter_capture_test_rising_edge_capture(void)
 
 	/* Check GPIO pin state */
 	ret = gpio_pin_get_dt(&capture_tester_gpios[1]);
-	if (ret == 1) {
-		TC_PRINT("GPIO pin is high\n");
-	} else if (ret == 0) {
+	if (ret == 0) {
 		zassert_equal(ret, 1, "GPIO pin state does not match expected value of high");
-	} else {
+	} else if (ret != 1) {
 		zassert_equal(ret, 0, "failed to get GPIO pin state");
 	}
 
@@ -101,11 +99,9 @@ static int counter_capture_test_falling_edge_capture(void)
 
 	/* Check GPIO pin state, expected to be low */
 	ret = gpio_pin_get_dt(&capture_tester_gpios[1]);
-	if (ret == 0) {
-		TC_PRINT("GPIO pin is low\n");
-	} else if (ret == 1) {
+	if (ret == 1) {
 		zassert_equal(ret, 0, "GPIO pin state does not match expected value of low");
-	} else {
+	} else if (ret != 0) {
 		zassert_equal(ret, 0, "failed to get GPIO pin state");
 	}
 
