@@ -271,17 +271,29 @@ ZTEST(counter_capture, test_both_edges_single_capture)
 	ret = counter_enable_capture(timer_dev, TIMER_CHANNEL);
 	zassert_ok(ret, "failed to enable capture");
 
-	/* Set GPIO pin to high to trigger rising edge */
-	ret = counter_capture_test_rising_edge_capture();
-	zassert_ok(ret, "rising edge capture test failed");
+	/* if gpio is already low, then test rising edge first, otherwise falling edge first */
+	if (gpio_pin_get_dt(&capture_tester_gpios[1]) == 0) {
+		/* Set GPIO pin to high to trigger rising edge */
+		ret = counter_capture_test_rising_edge_capture();
+		zassert_ok(ret, "rising edge capture test failed");
 
-	/* Verify that capture callback is not called again after single shot capture */
-	ret = counter_capture_test_falling_edge_capture();
-	zassert_equal(ret, -ETIMEDOUT,
-		      "capture callback should not be called after single shot capture");
+		/* Verify that capture callback is not called again after single shot capture */
+		ret = counter_capture_test_falling_edge_capture();
+		zassert_equal(ret, -ETIMEDOUT,
+			      "capture callback should not be called after single shot capture");
+	} else {
+		/* Set GPIO pin to low to trigger falling edge */
+		ret = counter_capture_test_falling_edge_capture();
+		zassert_ok(ret, "falling edge capture test failed");
+
+		/* Verify that capture callback is not called again after single shot capture */
+		ret = counter_capture_test_rising_edge_capture();
+		zassert_equal(ret, -ETIMEDOUT,
+			      "capture callback should not be called after single shot capture");
+	}
 }
 
-static void counter_before(void* f)
+static void counter_before(void *f)
 {
 	ARG_UNUSED(f);
 
@@ -289,7 +301,7 @@ static void counter_before(void* f)
 	counter_start(timer_dev);
 }
 
-static void counter_after(void* f)
+static void counter_after(void *f)
 {
 	ARG_UNUSED(f);
 
