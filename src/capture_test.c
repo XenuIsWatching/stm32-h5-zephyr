@@ -18,10 +18,7 @@
  * for this to work short PC0 to PA0 and PC1 to PA1
  * Pin CN8 1 to Pin CN5 2 and Pin CN8 2 to Pin CN5 1
  */
-static const struct gpio_dt_spec capture_tester_gpios[2] = {
-	GPIO_DT_SPEC_GET_BY_IDX(DT_PATH(zephyr_user), capture_tester_gpios, 0),
-	GPIO_DT_SPEC_GET_BY_IDX(DT_PATH(zephyr_user), capture_tester_gpios, 1),
-};
+static const struct gpio_dt_spec capture_tester_gpios[] = {DT_FOREACH_PROP_ELEM_SEP(DT_PATH(zephyr_user), capture_tester_gpios, GPIO_DT_SPEC_GET_BY_IDX, (,)) };
 
 const struct device *timer_dev = DEVICE_DT_GET(DT_NODELABEL(capture));
 
