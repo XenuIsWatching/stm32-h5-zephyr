@@ -10,7 +10,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/ztest.h>
 
-#define NUM_OF_CAPTURES 5
+#define NUM_OF_CONTINOUS_CAPTURES 5
 
 #define TIMER_CHANNEL 1
 
@@ -129,7 +129,7 @@ ZTEST(counter_capture, test_rising_edge_continous_capture)
 	ret = counter_enable_capture(timer_dev, TIMER_CHANNEL);
 	zassert_ok(ret, "failed to enable capture");
 
-	for (uint8_t i = 0; i < NUM_OF_CAPTURES; i++) {
+	for (uint8_t i = 0; i < NUM_OF_CONTINOUS_CAPTURES; i++) {
 		/* Set GPIO pin to high to trigger rising edge */
 		ret = counter_capture_test_rising_edge_capture();
 		zassert_ok(ret, "rising edge capture test failed");
@@ -180,7 +180,7 @@ ZTEST(counter_capture, test_falling_edge_continous_capture)
 	ret = counter_enable_capture(timer_dev, TIMER_CHANNEL);
 	zassert_ok(ret, "failed to enable capture");
 
-	for (uint8_t i = 0; i < NUM_OF_CAPTURES; i++) {
+	for (uint8_t i = 0; i < NUM_OF_CONTINOUS_CAPTURES; i++) {
 		/* Set GPIO pin to low to trigger falling edge */
 		ret = counter_capture_test_falling_edge_capture();
 		zassert_ok(ret, "falling edge capture test failed");
@@ -231,7 +231,7 @@ ZTEST(counter_capture, test_both_edges_continous_capture)
 	ret = counter_enable_capture(timer_dev, TIMER_CHANNEL);
 	zassert_ok(ret, "failed to enable capture");
 
-	for (uint8_t i = 0; i < NUM_OF_CAPTURES; i++) {
+	for (uint8_t i = 0; i < NUM_OF_CONTINOUS_CAPTURES; i++) {
 		/* if gpio is already low, then test rising edge first, otherwise falling edge first
 		 */
 		if (gpio_pin_get_dt(&capture_tester_gpios[1]) == 0) {
