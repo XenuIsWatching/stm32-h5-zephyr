@@ -10,8 +10,8 @@
 	counter_loopback_0: counter_loopback {
 		compatible = "test-counter-capture";
 		/* index order must match the order of the GPIOs for loopback */
-		counter-captures = <&capture 0 0>,
-				   <&capture 1 0>;
+		test-counter-captures = <&capture 0 0>,
+					<&capture 1 0>;
 	};
 };
 
