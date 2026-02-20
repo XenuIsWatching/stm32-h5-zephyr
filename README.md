@@ -26,6 +26,12 @@ west build --pristine=auto deps/zephyr/samples/basic/blinky
 west build --pristine=auto --extra-dtc-overlay=stm32h503-nucleo-i3c.overlay --extra-dtc-overlay=stm32h503-nucleo-counter.overlay .
 ```
 
+## IMU build test
+
+```
+west build --pristine=auto --extra-dtc-overlay=stm32h503-nucleo-st-imu.overlay --extra-dtc-overlay=stm32h503-nucleo-counter.overlay app
+```
+
 # udev rules
 
 you must add the stlink to udev for pyocd
