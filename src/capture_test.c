@@ -22,6 +22,11 @@ static const struct gpio_dt_spec capture_tester_gpios[] = {DT_FOREACH_PROP_ELEM_
 
 const struct device *timer_dev = DEVICE_DT_GET(DT_NODELABEL(capture));
 
+const struct counter_capture_dt_spec capture_dt_spec[] = {
+	COUNTER_CAPTURE_DT_SPEC_GET_BY_IDX(DT_NODELABEL(counter_loopback_0), 0),
+	COUNTER_CAPTURE_DT_SPEC_GET_BY_IDX(DT_NODELABEL(counter_loopback_0), 1),
+};
+
 K_SEM_DEFINE(capture_sem, 0, 1);
 
 /***************************************************************

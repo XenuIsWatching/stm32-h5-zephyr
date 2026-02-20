@@ -11,7 +11,7 @@ description: |
 compatible: "test-counter-capture"
 
 properties:
-  counters:
+  counter-captures:
     type: phandle-array
     required: true
     description: |

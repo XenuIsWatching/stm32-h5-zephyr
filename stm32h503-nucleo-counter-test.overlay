@@ -7,11 +7,11 @@
 				       <&gpioc 7 GPIO_ACTIVE_HIGH>;
 	};
 
-	counter_loopback_0 {
+	counter_loopback_0: counter_loopback {
 		compatible = "test-counter-capture";
 		/* index order must match the order of the GPIOs for loopback */
-		counters = <&capture 0 0>,
-			   <&capture 1 0>;
+		counter-captures = <&capture 0 0>,
+				   <&capture 1 0>;
 	};
 };
 
