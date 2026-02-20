@@ -1,0 +1,27 @@
+#include <st/h5/stm32h503rbtx-pinctrl.dtsi>
+#include <zephyr/dt-bindings/sensor/lsm6dsv16x.h>
+#include <zephyr/dt-bindings/sensor/lsm6dsvxxx.h>
+
+&i2c1 {
+	status = "disabled";
+};
+
+&i3c1 {
+	pinctrl-0 = <&i3c1_scl_pb6 &i3c1_sda_pb7>;
+	pinctrl-names = "default";
+	i3c-scl-hz = <12500000>;
+	i2c-scl-hz = <I2C_BITRATE_FAST_PLUS>;
+	status = "okay";
+
+	lsm6dsv16x_5: lsm6dsv16x@500000803e0000004 {
+		compatible = "st,lsm6dsv16x";
+		reg = <0x5 0x00000803 0xe0000004>;
+		int1-gpios = <&gpioc 6 GPIO_ACTIVE_HIGH>;
+		int2-gpios = <&gpioc 7 GPIO_ACTIVE_HIGH>;
+		accel-range = <LSM6DSV16X_DT_FS_8G>;
+		accel-odr = <LSM6DSVXXX_DT_ODR_AT_60Hz>;
+		gyro-range = <LSM6DSV16X_DT_FS_2000DPS>;
+		gyro-odr = <LSM6DSVXXX_DT_ODR_AT_60Hz>;
+		status = "okay";
+	};
+};
